@@ -7,14 +7,14 @@ use std::fmt;
 
 /// Errors produced by this component. Fail-fast: errors are returned, not panicked.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Sigmaos_archlinux_reproError {
+pub enum ArchlinuxReproError {
     /// The requested operation is not valid in the current state.
     InvalidState,
     /// Input failed validation.
     InvalidInput(String),
 }
 
-impl fmt::Display for Sigmaos_archlinux_reproError {
+impl fmt::Display for ArchlinuxReproError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::InvalidState => write!(f, "invalid state"),
@@ -23,20 +23,20 @@ impl fmt::Display for Sigmaos_archlinux_reproError {
     }
 }
 
-impl std::error::Error for Sigmaos_archlinux_reproError {}
+impl std::error::Error for ArchlinuxReproError {}
 
 /// Core component type. Holds configuration; performs no I/O by default.
 #[derive(Debug, Clone, Default)]
-pub struct Sigmaos_archlinux_repro {
+pub struct ArchlinuxRepro {
     name: String,
 }
 
-impl Sigmaos_archlinux_repro {
+impl ArchlinuxRepro {
     /// Create a new component instance. Fails fast on empty names.
-    pub fn new(name: impl Into<String>) -> Result<Self, Sigmaos_archlinux_reproError> {
+    pub fn new(name: impl Into<String>) -> Result<Self, ArchlinuxReproError> {
         let name = name.into();
         if name.trim().is_empty() {
-            return Err(Sigmaos_archlinux_reproError::InvalidInput("name must not be empty".into()));
+            return Err(ArchlinuxReproError::InvalidInput("name must not be empty".into()));
         }
         Ok(Self { name })
     }
@@ -47,9 +47,9 @@ impl Sigmaos_archlinux_repro {
     }
 
     /// Perform the component's primary action. Returns a deterministic result.
-    pub fn run(&self) -> Result<String, Sigmaos_archlinux_reproError> {
+    pub fn run(&self) -> Result<String, ArchlinuxReproError> {
         if self.name.is_empty() {
-            return Err(Sigmaos_archlinux_reproError::InvalidState);
+            return Err(ArchlinuxReproError::InvalidState);
         }
         Ok(format!("{}: ok", self.name))
     }
@@ -62,18 +62,18 @@ mod tests {
     #[test]
     fn new_rejects_empty_name() {
         // Arrange / Act / Assert
-        assert!(matches!(Sigmaos_archlinux_repro::new("  "), Err(Sigmaos_archlinux_reproError::InvalidInput(_))));
+        assert!(matches!(ArchlinuxRepro::new("  "), Err(ArchlinuxReproError::InvalidInput(_))));
     }
 
     #[test]
     fn run_returns_deterministic_result() {
-        let c = Sigmaos_archlinux_repro::new("test").unwrap();
+        let c = ArchlinuxRepro::new("test").unwrap();
         assert_eq!(c.run().unwrap(), "test: ok");
     }
 
     #[test]
     fn name_is_accessible() {
-        let c = Sigmaos_archlinux_repro::new("abc").unwrap();
+        let c = ArchlinuxRepro::new("abc").unwrap();
         assert_eq!(c.name(), "abc");
     }
 }
