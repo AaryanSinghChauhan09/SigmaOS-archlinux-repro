@@ -3,7 +3,7 @@ name = "SigmaOS-archlinux-repro"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "archlinux-repro component"
+description = "SigmaOS archlinux-repro component (Arch Linux inspired)"
 upstream = []
 
 [contract]
