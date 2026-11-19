@@ -1,8 +1,15 @@
 [package]
-name = "sigmaos-archlinux-repro"
+name = "SigmaOS-archlinux-repro"
 version = "0.1.0"
 edition = "2021"
-license = "MIT"
-description = "Reproducible-build verification tooling — SigmaOS component inspired by Arch Linux infrastructure."
+license = "Apache-2.0"
+description = "SigmaOS archlinux_repro component"
+
+[lib]
+name = "archlinux_repro"
+path = "src/lib.rs"
 
 [dependencies]
+thiserror = "1"
+
+[dev-dependencies]
