@@ -1,16 +1,16 @@
 [component]
 name = "SigmaOS-archlinux-repro"
 tier = 2
-stability = "scaffold"
+stability = "beta"
 language = "rust"
 description = "SigmaOS archlinux-repro component (Arch Linux inspired)"
-upstream = []
+upstream = ["https://github.com/archlinux/archlinux-repro"]
 
 [contract]
-provides = ["component"]
+provides = ["repro-job", "tree-compare", "build-runner"]
 depends_on = []
 
 [maturity]
 status = "Implemented"
-test_evidence = "Compiles and passes AAA unit tests"
+test_evidence = "cargo test: 8 tests pass (tree compare, job orchestration, runner)"
 next_milestone = "Hardware and runtime integration"
